@@ -43,17 +43,20 @@
         class="w-full mt-2 mr-5 bg-baige-100 focus:bg-baige-100 border-2 border-cobalt-700 text-cobalt-700 rounded p-2 focus:outline-none focus:shadow-outline"
         id="username"
         type="text"
-        placeholder="Username"
+        v-model="username"
+        placeholder="Email"
       />
       <label class="mt-4 text-cobalt-900" for="username"> Password </label>
       <input
         class="w-full mt-2 mr-5 bg-baige-100 focus:bg-baige-100 border-2 border-cobalt-700 text-cobalt-700 rounded p-2 focus:outline-none focus:shadow-outline"
         id="username"
+        v-model="password"
         type="password"
         placeholder="Password"
       />
       <div class="flex justify-between mt-5">
         <button
+          @click="performSignIn"
           class="bg-cobalt-700 rounded text-white w-24 h-10 mx-2 hover:bg-cobalt-800"
         >
           Sign In
@@ -67,3 +70,32 @@
     </div>
   </div>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      username: "",
+      password: "",
+    };
+  },
+  methods: {
+    async performSignIn() {
+      const { message, token } = await this.login();
+      console.log(message, token);
+    },
+    async login() {
+      const response = await $fetch(
+        "http://localhost:5000/api/journey-auth/login",
+        {
+          method: "POST",
+          body: {
+            email: this.username,
+            password: this.password,
+          },
+        }
+      );
+      return response;
+    },
+  },
+};
+</script>
