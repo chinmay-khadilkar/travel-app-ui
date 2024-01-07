@@ -240,6 +240,8 @@
   </div>
 </template>
 <script>
+import { useTokenStore } from "~/store/token";
+import { useJourneyStore } from "~/store/journey";
 export default {
   data() {
     return {
@@ -262,7 +264,14 @@ export default {
         },
       ],
       file: {},
+      tokenStore: useTokenStore(),
+      journeyStore: useJourneyStore(),
     };
+  },
+  computed: {
+    getAuthToken() {
+      return this.tokenStore.authToken;
+    },
   },
   methods: {
     goToPage(pageNumber) {
@@ -297,16 +306,13 @@ export default {
         }
       }
 
-      /* console.log(this.file);
-      console.log(JSON.stringify(journey)); */
-      const journeyResponse = await $fetch(
-        "http://localhost:5000/api/journey/store",
-        {
-          method: "POST",
-          body: formData,
-        }
+      const journeyResponse = await this.journeyStore.addJourney(
+        this.getAuthToken,
+        formData
       );
-      console.log(journeyResponse);
+      if (journeyResponse.message === "Success") {
+        this.$router.push("/home");
+      }
     },
     handleFileUpload(e) {
       this.file = e.target.files[0];
