@@ -15,6 +15,7 @@
     "@pinia-plugin-persistedstate/nuxt": "^1.2.0",
     "nuxt": "^3.8.2",
     "nuxt-lucide-icons": "^1.0.3",
+    "nuxt3-leaflet": "^1.0.12",
     "vue": "^3.3.8",
     "vue-router": "^4.2.5"
   },

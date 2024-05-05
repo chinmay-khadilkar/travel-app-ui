@@ -43,15 +43,18 @@
     <div class="h-full w-4/5 p-4">
       <div class="w-5/6 h-24 text-cobalt-900 text-3xl font-bold">Home</div>
       <div class="w-5/6 overflow-auto h-5/6 pa-4 text-cobalt-900">
-        <div v-for="journey in journeyList" :key="journey._id" class="w-5/6">
-          <div
-            class="border border-cobalt-700 rounded font-mono h-auto mb-2 p-1"
+        <l-map :zoom="zoom" :center="center">
+          <l-tile-layer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          ></l-tile-layer>
+          <l-marker
+            v-for="(journey, index) in journeyList"
+            :key="index"
+            :lat-lng="[journey.lat, journey.lon]"
           >
-            <div class="font-bold">{{ journey.title }}</div>
-            <h3>{{ journey.destination }}</h3>
-            <h3>{{ journey.duration }}</h3>
-          </div>
-        </div>
+            <l-tooltip>{{ journey.destination }}</l-tooltip>
+          </l-marker>
+        </l-map>
       </div>
     </div>
   </div>
@@ -69,6 +72,8 @@ export default defineComponent({
     const authToken = tokenStore.authToken;
     const loader = ref(true);
     const message = await journeyStore.fetchJourneyList(authToken);
+    const zoom = ref(3);
+    const center = ref([0, 0]);
     if (message !== "Success") {
       router.push("/");
     }
@@ -86,6 +91,8 @@ export default defineComponent({
       journeyList,
       navigateToAddJourney,
       logout,
+      zoom,
+      center,
     };
   },
 });

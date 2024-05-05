@@ -7,5 +7,6 @@ export default defineNuxtConfig({
     "nuxt-lucide-icons",
     "@pinia/nuxt",
     "@pinia-plugin-persistedstate/nuxt",
+    "nuxt3-leaflet",
   ],
 });

@@ -99,6 +99,7 @@
           <input
             type="text"
             v-model="journeyForm.destination"
+            @blur="fetchCoords"
             class="w-full mt-2 mr-5 bg-baige-100 focus:bg-baige-100 border-2 border-cobalt-700 text-cobalt-700 rounded p-2 focus:outline-none focus:shadow-outline"
           />
         </div>
@@ -256,6 +257,8 @@ export default {
         start: "",
         destination: "",
         isItenenaryDocument: false,
+        lat: "",
+        lon: "",
       },
       days: [
         {
@@ -316,6 +319,16 @@ export default {
     },
     handleFileUpload(e) {
       this.file = e.target.files[0];
+    },
+    async fetchCoords() {
+      const name = this.journeyForm.destination;
+      const response = await $fetch(
+        `https://nominatim.openstreetmap.org/search?q=${name}&format=json&limit=1`
+      );
+      [this.journeyForm.lat, this.journeyForm.lon] = [
+        response[0].lat,
+        response[0].lon,
+      ];
     },
   },
 };
