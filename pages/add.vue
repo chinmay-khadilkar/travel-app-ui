@@ -152,44 +152,38 @@
       <div class="text-cobalt-900 text-lg">Add Itenenary</div>
       <div class="h-5/6 max-h-full overflow-y-scroll overflow-x-hidden mt-2">
         <div v-for="(item, index) in days" :key="index">
-          <div class="block mr-5 w-full text-cobalt-900 text-lg">
-            <span>Day {{ item.numberOfDays }}</span>
-          </div>
-          <div class="block p-3">
-            <div>
-              <div
-                v-for="(location, index) in item.totalLocations"
-                :key="item.numberOfDays + index"
+          <div class="flex flex-row">
+            <div class="w-10/12">
+              <label class="mt-2 text-cobalt-900"
+                >Place Number {{ index + 1 }}</label
               >
-                <label class="mt-2 text-cobalt-900"
-                  >Place Number {{ index + 1 }}</label
-                >
-                <input
-                  :key="index"
-                  v-model="location.name"
-                  type="text"
-                  class="w-full mt-2 mr-5 bg-baige-100 focus:bg-baige-100 border-2 border-cobalt-700 text-cobalt-700 rounded p-2 focus:outline-none focus:shadow-outline"
-                />
-              </div>
-
+              <input
+                :key="index"
+                v-model="item.cityName"
+                type="text"
+                @change="fetchLatLong(item.cityName)"
+                class="w-full mt-2 mr-5 bg-baige-100 focus:bg-baige-100 border-2 border-cobalt-700 text-cobalt-700 rounded p-2 focus:outline-none focus:shadow-outline"
+              />
+            </div>
+            <div class="w-1/12 flex justify-end items-center mt-5">
               <button
-                title="Add new places in this day"
-                @click="addPlaces(index)"
+                title="Remove Day in itenenary"
                 type="button"
-                class="rounded-full w-6 h-6 bg-cobalt-700 text-white mt-1 flex justify-center items-center hover:bg-cobalt-900"
+                @click="removePlace(index)"
+                class="rounded-full w-8 h-8 bg-cobalt-700 text-white mt-1 flex justify-center items-center hover:bg-cobalt-900"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
-                  stroke-width="1.5"
+                  strokeWidth="1.5"
                   stroke="currentColor"
-                  class="w-4 h-4"
+                  class="w-6 h-6"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M12 4.5v15m7.5-7.5h-15"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M5 12h14"
                   />
                 </svg>
               </button>
@@ -198,7 +192,7 @@
         </div>
         <button
           title="Add new Day in itenenary"
-          @click="addDays()"
+          @click="addPlaces()"
           type="button"
           class="rounded-full w-8 h-8 bg-cobalt-700 text-white mt-1 flex justify-center items-center hover:bg-cobalt-900"
         >
@@ -260,12 +254,7 @@ export default {
         lat: "",
         lon: "",
       },
-      days: [
-        {
-          numberOfDays: 1,
-          totalLocations: [{ name: "" }],
-        },
-      ],
+      days: [{ cityName: "", lat: "", long: "" }],
       file: {},
       tokenStore: useTokenStore(),
       journeyStore: useJourneyStore(),
@@ -280,38 +269,25 @@ export default {
     goToPage(pageNumber) {
       this.page = pageNumber;
     },
-    addPlaces(index) {
-      this.days[index].totalLocations.push({
-        name: "",
+    addPlaces() {
+      this.days.push({
+        cityName: "",
+        lat: "",
+        lon: "",
       });
     },
-    addDays() {
-      const day = {
-        numberOfDays: this.days.length + 1,
-        totalLocations: [{ name: "" }],
-      };
-
-      this.days.push(day);
+    removePlace(index) {
+      this.days.splice(index, 1);
     },
     async addItenenary() {
       const journey = {
         ...this.journeyForm,
-        itenenary: this.days,
+        days: this.days,
       };
-      const formData = new FormData();
-
-      formData.append("file", this.file);
-      for (let key in journey) {
-        if (Array.isArray(journey[key])) {
-          formData.append(key, JSON.stringify(journey[key]));
-        } else {
-          formData.append(key, journey[key]);
-        }
-      }
 
       const journeyResponse = await this.journeyStore.addJourney(
         this.getAuthToken,
-        formData
+        JSON.stringify(journey)
       );
       if (journeyResponse.message === "Success") {
         this.$router.push("/home");
@@ -329,6 +305,19 @@ export default {
         response[0].lat,
         response[0].lon,
       ];
+    },
+
+    async fetchLatLong(name) {
+      const response = await $fetch(
+        `https://nominatim.openstreetmap.org/search?q=${name}&format=json&limit=1`
+      );
+      const day = {
+        cityName: name,
+        lat: response[0].lat,
+        long: response[0].lon,
+      };
+      let indx = this.days.findIndex((day) => day.cityName === name);
+      this.days[indx] = day;
     },
   },
 };

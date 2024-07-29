@@ -40,10 +40,10 @@
         Log Out
       </div>
     </div>
-    <div class="h-full w-4/5 p-4">
+    <div class="h-full p-4" :class="showDetails ? 'w-3/5' : 'w-4/5'">
       <div class="w-5/6 h-24 text-cobalt-900 text-3xl font-bold">Home</div>
       <div class="w-5/6 overflow-auto h-5/6 pa-4 text-cobalt-900">
-        <l-map :zoom="zoom" :center="center">
+        <l-map :zoom="zoom" :center="center" v-if="!showDetails">
           <l-tile-layer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           ></l-tile-layer>
@@ -51,10 +51,51 @@
             v-for="(journey, index) in journeyList"
             :key="index"
             :lat-lng="[journey.lat, journey.lon]"
+            @click="goToLocation(journey.lat, journey.lon, index)"
           >
             <l-tooltip>{{ journey.destination }}</l-tooltip>
           </l-marker>
         </l-map>
+        <l-map :zoom="zoom" :center="center" v-else>
+          <l-tile-layer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          ></l-tile-layer>
+          <l-marker
+            v-for="detail in journeyDestinations"
+            :lat-lng="[detail.lat, detail.long]"
+            :key="detail._id"
+          >
+            <l-tooltip>{{ detail.cityName }}</l-tooltip>
+          </l-marker>
+          <l-polyline :lat-lngs="polylineLatLngs" />
+        </l-map>
+      </div>
+    </div>
+    <div class="h-full w-1/5 p-4" v-if="showDetails">
+      <div class="mt-4 flex items-end justify-end">
+        <button
+          type="button"
+          @click="closeDetails()"
+          class="rounded-full w-8 h-8 bg-cobalt-700 text-white mt-1 flex justify-center items-center hover:bg-cobalt-900"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 18 18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
+      <div v-for="[key, value] in Object.entries(journeyDetail)" :key="key">
+        <div>{{ value }}</div>
       </div>
     </div>
   </div>
@@ -74,11 +115,16 @@ export default defineComponent({
     const message = await journeyStore.fetchJourneyList(authToken);
     const zoom = ref(3);
     const center = ref([0, 0]);
+    const showDetails = ref(false);
+    const journeyDestinations = ref(null);
+    const polylineLatLngs = ref(null);
+    const journeyDetail = ref({});
     if (message !== "Success") {
       router.push("/");
     }
     const journeyList = journeyStore.getJourneyList;
     loader.value = message === "Failure";
+
     function navigateToAddJourney() {
       router.push("/add");
     }
@@ -86,13 +132,39 @@ export default defineComponent({
       tokenStore.setToken("");
       router.push("/");
     }
+    function goToLocation(lat, lon, journeyIndex) {
+      this.showDetails = true;
+      this.center = [lat, lon];
+      this.zoom = 8;
+
+      this.journeyDestinations = [
+        ...this.journeyList[journeyIndex].days.map((day) => day),
+      ];
+      this.polylineLatLngs = this.journeyDestinations.map((item) => [
+        item.lat,
+        item.long,
+      ]);
+      this.journeyDetail = this.journeyList[journeyIndex];
+    }
+    function closeDetails() {
+      this.showDetails = false;
+      this.journeyDetail = null;
+      this.zoom = 3;
+      this.center = [0, 0];
+    }
     return {
       loader,
       journeyList,
       navigateToAddJourney,
       logout,
+      goToLocation,
       zoom,
       center,
+      showDetails,
+      journeyDestinations,
+      polylineLatLngs,
+      closeDetails,
+      journeyDetail,
     };
   },
 });
