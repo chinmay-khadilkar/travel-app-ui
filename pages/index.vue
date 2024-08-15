@@ -71,30 +71,21 @@
   </div>
 </template>
 <script setup lang="js">
-import { useTokenStore } from '../store/token';
-const tokenStore = useTokenStore();
+import { useAuthStore } from '../store/auth';
+const authStore = useAuthStore();
 const username = ref("");
 const password = ref("");
 const router = useRouter();
 async function performSignIn() {
-  const { message, token } = await login();
-  if (message === 'Success') {
-    tokenStore.setToken(token);
-    router.push('/home');
-  }
-
-}
-async function login() {
-  const response = await $fetch(
-    "http://localhost:5000/api/journey-auth/login",
-    {
-      method: "POST",
-      body: {
-        email: username.value,
-        password: password.value,
-      },
+  message = await authStore.login({
+      email: username.value,
+      password: password.value,
     }
   );
-  return response;
+
+  if (message === 'Success') {
+    router.push('/home');
+  }
+  showToast = true;
 }
 </script>

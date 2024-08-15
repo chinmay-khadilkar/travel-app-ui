@@ -20,63 +20,80 @@
       <span class="sr-only">Loading...</span>
     </div>
   </div>
-  <div v-else class="w-full h-full flex flex-row">
-    <div class="h-full w-2/12 bg-cobalt-900 text-baige-400 pt-28">
-      <div
-        class="text-xl mb-4 p-2 rounded-full border-baige-400 border text-center mx-2 cursor-pointer"
-      >
-        Home
-      </div>
-      <div
-        class="text-xl mb-4 p-2 rounded-full border-baige-400 border text-center mx-2 cursor-pointer"
-        @click="navigateToAddJourney"
-      >
-        Add Journey
-      </div>
-      <div
-        class="text-xl mb-4 p-2 rounded-full border-baige-400 border text-center mx-2 cursor-pointer"
-        @click="logout"
-      >
-        Log Out
-      </div>
-    </div>
-    <div class="h-full p-4" :class="showDetails ? 'w-3/5' : 'w-4/5'">
-      <div class="w-5/6 h-24 text-cobalt-900 text-3xl font-bold">Home</div>
-      <div class="w-5/6 overflow-auto h-5/6 pa-4 text-cobalt-900">
-        <l-map :zoom="zoom" :center="center" v-if="!showDetails">
-          <l-tile-layer
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          ></l-tile-layer>
-          <l-marker
-            v-for="(journey, index) in journeyList"
-            :key="index"
-            :lat-lng="[journey.lat, journey.lon]"
-            @click="goToLocation(journey.lat, journey.lon, index)"
-          >
-            <l-tooltip>{{ journey.destination }}</l-tooltip>
-          </l-marker>
-        </l-map>
-        <l-map :zoom="zoom" :center="center" v-else>
-          <l-tile-layer
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          ></l-tile-layer>
-          <l-marker
-            v-for="detail in journeyDestinations"
-            :lat-lng="[detail.lat, detail.long]"
-            :key="detail._id"
-          >
-            <l-tooltip>{{ detail.cityName }}</l-tooltip>
-          </l-marker>
-          <l-polyline :lat-lngs="polylineLatLngs" />
-        </l-map>
-      </div>
-    </div>
-    <div class="h-full w-1/5 p-4" v-if="showDetails">
-      <div class="mt-4 flex items-end justify-end">
+  <div v-else class="flex flex-col w-full h-full">
+    <div class="w-full h-14 flex justify-end">
+      <div class="min-w-24 max-w-96 flex flex-row justify-between mr-5 pa-2">
         <button
+          title="Add Itenenary"
+          type="button"
+          @click="navigateToAddJourney"
+          class="rounded-full mt-2 ml-2 w-8 h-8 bg-cobalt-700 text-white mt-1 flex justify-center items-center hover:bg-cobalt-900"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 4.5v15m7.5-7.5h-15"
+            />
+          </svg>
+        </button>
+
+        <button
+          title="edit details"
+          v-if="showDetails"
+          type="button"
+          class="rounded-full w-8 h-8 ml-2 mt-2 bg-cobalt-700 text-white mt-1 flex justify-center items-center hover:bg-cobalt-900"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
+            />
+          </svg>
+        </button>
+        <button
+          title="delete journey"
+          v-if="showDetails"
+          type="button"
+          @click="deleteJourney"
+          class="rounded-full w-8 h-8 ml-2 mt-2 bg-cobalt-700 text-white mt-1 flex justify-center items-center hover:bg-cobalt-900"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+            />
+          </svg>
+        </button>
+        <button
+          title="close details"
+          v-if="showDetails"
           type="button"
           @click="closeDetails()"
-          class="rounded-full w-8 h-8 bg-cobalt-700 text-white mt-1 flex justify-center items-center hover:bg-cobalt-900"
+          class="rounded-full w-8 h-8 ml-2 mt-2 bg-cobalt-700 text-white mt-1 flex justify-center items-center hover:bg-cobalt-900"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -93,10 +110,64 @@
             />
           </svg>
         </button>
+        <button
+          title="Logout"
+          type="button"
+          @click="logout"
+          class="rounded-full mt-2 ml-2 w-8 h-8 bg-cobalt-700 text-white mt-1 flex justify-center items-center hover:bg-cobalt-900"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"
+            />
+          </svg>
+        </button>
       </div>
-      <div v-for="[key, value] in Object.entries(journeyDetail)" :key="key">
-        <div>{{ value }}</div>
+    </div>
+    <div class="flex flex-row w-full h-full">
+      <div
+        class="h-full p-4 rounded p-5 flex-grow"
+        :class="showDetails ? 'w-4/5' : 'w-full'"
+      >
+        <div class="w-full overflow-auto h-full flex-grow pa-4 text-cobalt-900">
+          <l-map :zoom="zoom" :center="center" v-if="!showDetails">
+            <l-tile-layer
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            ></l-tile-layer>
+            <l-marker
+              v-for="(journey, index) in journeyList"
+              :key="index"
+              :lat-lng="[journey.lat, journey.lon]"
+              @click="goToLocation(journey.lat, journey.lon, index)"
+            >
+              <l-tooltip>{{ journey.destination }}</l-tooltip>
+            </l-marker>
+          </l-map>
+          <l-map :zoom="zoom" :center="center" v-else>
+            <l-tile-layer
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            ></l-tile-layer>
+            <l-marker
+              v-for="detail in journeyDestinations"
+              :lat-lng="[detail.lat, detail.long]"
+              :key="detail._id"
+            >
+              <l-tooltip>{{ detail.cityName }}</l-tooltip>
+            </l-marker>
+            <l-polyline :lat-lngs="polylineLatLngs" />
+          </l-map>
+        </div>
       </div>
+      <journeyInfo v-if="showDetails" :journeyDetails="journeyDetail" />
     </div>
   </div>
 </template>
@@ -104,9 +175,15 @@
 import { defineComponent } from "@vue/composition-api";
 import { useJourneyStore } from "../store/journey";
 import { useTokenStore } from "~/store/token";
+import journeyInfo from "~/components/journeyInfo.vue";
+// import { useAuthStore } from "~/store/auth";
 
 export default defineComponent({
+  components: {
+    journeyInfo,
+  },
   async setup() {
+    //const authStore = useAuthStore();
     const router = useRouter();
     const journeyStore = useJourneyStore();
     const tokenStore = useTokenStore();
@@ -152,6 +229,17 @@ export default defineComponent({
       this.zoom = 3;
       this.center = [0, 0];
     }
+
+    async function deleteJourney() {
+      console.log(this.journeyDetail);
+      const response = await journeyStore.deleteJourney(
+        authToken,
+        this.journeyDetail._id
+      );
+      this.showDetails = false;
+      this.journeyDetail = {};
+      this.center = [0, 0];
+    }
     return {
       loader,
       journeyList,
@@ -165,6 +253,7 @@ export default defineComponent({
       polylineLatLngs,
       closeDetails,
       journeyDetail,
+      deleteJourney,
     };
   },
 });

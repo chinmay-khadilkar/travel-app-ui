@@ -28,6 +28,21 @@ export const useJourneyStore = defineStore('journey', {
         }
       );
       return journeyResponse;
+    },
+    async deleteJourney(token, journeyId) {
+      const journeyResponse = await $fetch(
+        "http://localhost:5000/api/journey/delete",
+        {
+          method: "POST",
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+          body: {
+            journeyId: journeyId
+          }
+        }
+      );
+      return journeyResponse;
     }
   },
   getters: {

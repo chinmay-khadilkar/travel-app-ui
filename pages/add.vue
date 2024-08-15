@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-row m-auto w-1/3 h-full">
+  <div class="flex flex-row m-auto w-1/3 h-auto">
     <div
       class="border-2 rounded border-cobalt-700 w-full h-5/6 p-5 mt-5 font-mono"
       v-if="page === 1"
@@ -104,38 +104,8 @@
           />
         </div>
       </div>
-      <div class="w-fill h-56 flex flex-row justify-netween mt-2">
-        <div
-          class="border-2 border-dashed rounded border-cobalt-700 w-2/3 h-56 mt-2 font-mono"
-        >
-          <div>
-            <div class="flex justify-start align-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="w-full h-48 text-cobalt-700"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"
-                />
-              </svg>
-            </div>
-            <label class="text-cobalt-700 block text-center text-lg"
-              >Upload Itenenary as (pdf/image) or</label
-            >
-            <input
-              class="text-cobalt-700 block text-center text-lg mt-2"
-              type="file"
-              @change="handleFileUpload"
-            />
-          </div>
-        </div>
-        <div class="w-1/3 h-56 mt-2 flex items-end justify-end">
+      <div class="w-fill h-28 flex flex-row justify-end mt-2">
+        <div class="w-1/3 h-28 mt-2 flex items-end justify-end">
           <button
             @click="goToPage(2)"
             class="border border-cobalt-700 rounded w-2/3 h-10 text-cobalt-700 roundex mx-2 hover:bg-baige-300"
@@ -237,7 +207,14 @@
 <script>
 import { useTokenStore } from "~/store/token";
 import { useJourneyStore } from "~/store/journey";
+import { useAuthStore } from "~/store/auth";
 export default {
+  created() {
+    const isLoggedIn = this.authStore.isAuthenticated;
+    if (!isLoggedIn) {
+      this.$router.push("/");
+    }
+  },
   data() {
     return {
       page: 1,
@@ -258,6 +235,7 @@ export default {
       file: {},
       tokenStore: useTokenStore(),
       journeyStore: useJourneyStore(),
+      authStore: useAuthStore(),
     };
   },
   computed: {
@@ -289,8 +267,13 @@ export default {
         this.getAuthToken,
         JSON.stringify(journey)
       );
-      if (journeyResponse.message === "Success") {
-        this.$router.push("/home");
+      const isLoggedIn = this.authStore.isAuthenticated;
+      if (isLoggedIn) {
+        if (journeyResponse.message === "Success") {
+          this.$router.push("/home");
+        }
+      } else {
+        this.$router.push("/");
       }
     },
     handleFileUpload(e) {
