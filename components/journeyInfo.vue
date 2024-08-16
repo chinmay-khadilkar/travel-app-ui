@@ -1,5 +1,7 @@
 <template>
-  <div class="h-full w-1/5 p-4">
+  <div
+    class="h-auto w-96 p-4 absolute top-20 right-20 rounded bg-baige-300 z-[9999] shadow-2xl border-2 border-cobalt-400"
+  >
     <div>
       <div class="w-full mr-5 text-cobalt-700">
         {{ journeyDetails.title }}

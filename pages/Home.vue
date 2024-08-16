@@ -20,7 +20,7 @@
       <span class="sr-only">Loading...</span>
     </div>
   </div>
-  <div v-else class="flex flex-col w-full h-full">
+  <div v-else class="flex flex-col w-full h-full absolute">
     <div class="w-full h-14 flex justify-end">
       <div class="min-w-24 max-w-96 flex flex-row justify-between mr-5 pa-2">
         <button
@@ -49,6 +49,7 @@
           title="edit details"
           v-if="showDetails"
           type="button"
+          @click="navigateToEdit"
           class="rounded-full w-8 h-8 ml-2 mt-2 bg-cobalt-700 text-white mt-1 flex justify-center items-center hover:bg-cobalt-900"
         >
           <svg
@@ -134,10 +135,7 @@
       </div>
     </div>
     <div class="flex flex-row w-full h-full">
-      <div
-        class="h-full p-4 rounded p-5 flex-grow"
-        :class="showDetails ? 'w-4/5' : 'w-full'"
-      >
+      <div class="h-full w-full p-4 rounded p-5 flex-grow">
         <div class="w-full overflow-auto h-full flex-grow pa-4 text-cobalt-900">
           <l-map :zoom="zoom" :center="center" v-if="!showDetails">
             <l-tile-layer
@@ -167,8 +165,8 @@
           </l-map>
         </div>
       </div>
-      <journeyInfo v-if="showDetails" :journeyDetails="journeyDetail" />
     </div>
+    <journeyInfo v-if="showDetails" :journeyDetails="journeyDetail" />
   </div>
 </template>
 <script>
@@ -203,7 +201,12 @@ export default defineComponent({
     loader.value = message === "Failure";
 
     function navigateToAddJourney() {
-      router.push("/add");
+      router.push({ name: "add" });
+    }
+    function navigateToEdit() {
+      router.push({
+        path: `/add/${this.journeyDetail._id}`,
+      });
     }
     function logout() {
       tokenStore.setToken("");
@@ -254,6 +257,7 @@ export default defineComponent({
       closeDetails,
       journeyDetail,
       deleteJourney,
+      navigateToEdit,
     };
   },
 });

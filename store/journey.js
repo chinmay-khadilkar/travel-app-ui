@@ -29,6 +29,19 @@ export const useJourneyStore = defineStore('journey', {
       );
       return journeyResponse;
     },
+    async updateJourney(token, journeyObject) {
+      const journeyResponse = await $fetch(
+        "http://localhost:5000/api/journey/update",
+        {
+          method: "POST",
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+          body: journeyObject,
+        }
+      );
+      return journeyResponse;
+    },
     async deleteJourney(token, journeyId) {
       const journeyResponse = await $fetch(
         "http://localhost:5000/api/journey/delete",

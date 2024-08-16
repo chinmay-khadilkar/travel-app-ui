@@ -68,14 +68,23 @@
         </button>
       </div>
     </div>
+    <toast
+      v-if="showToast"
+      :message="message"
+      :timeout="3000"
+      @close="showToast = false"
+    ></toast>
   </div>
 </template>
 <script setup lang="js">
 import { useAuthStore } from '../store/auth';
+import toast from '../components/toast.vue';
 const authStore = useAuthStore();
 const username = ref("");
 const password = ref("");
 const router = useRouter();
+let showToast = ref(false);
+let message = ref("");
 async function performSignIn() {
   message = await authStore.login({
       email: username.value,
@@ -85,7 +94,8 @@ async function performSignIn() {
 
   if (message === 'Success') {
     router.push('/home');
+  } else {
+    showToast.value = true;
   }
-  showToast = true;
 }
 </script>
