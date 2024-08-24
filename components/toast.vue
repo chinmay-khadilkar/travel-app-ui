@@ -2,7 +2,7 @@
   <transition mode="out-in" name="fade">
     <div
       v-if="show"
-      class="absolute h-10 w-96 text-white rounded top-0 right-0 mt-2 mr-2 p-2"
+      class="absolute h-10 w-96 text-white rounded-mac top-0 right-0 mt-2 mr-2 p-2"
       :class="[`bg-${bg_color}-500`]"
     >
       {{ message }}
@@ -28,10 +28,10 @@ export default {
       show: false,
       bg_color:
         this.toastType === "failure"
-          ? "scarlet"
+          ? "mac-red"
           : this.toastType === "success"
-          ? "cobalt"
-          : "orange",
+          ? "mac-green"
+          : "mac-yellow",
     };
   },
   methods: {

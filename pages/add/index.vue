@@ -1,106 +1,106 @@
 <template>
   <div class="flex flex-row m-auto w-1/3 h-auto">
     <div
-      class="border-2 rounded border-cobalt-700 w-full h-5/6 p-5 mt-5 font-mono"
+      class="border-mac border rounded-mac border-mac-blue w-full h-5/6 p-5 mt-5 font-mono"
       v-if="page === 1"
     >
-      <div class="text-cobalt-900 text-lg">Add/ Edit Journey</div>
+      <div class="text-mac-blue text-lg">Add Journey</div>
       <div class="flex flex-row justify-between mt-2">
         <div class="block mr-5 w-full">
-          <label class="mt-2 text-cobalt-900"
+          <label class="mt-2 text-mac-blue"
             >Journey Title
-            <span class="text-scarlet-900 mt-1 font-bold">*</span>
+            <span class="text-mac-red mt-1 font-system">*</span>
           </label>
           <input
             type="text"
             v-model="journeyForm.title"
-            class="w-full mt-2 mr-5 bg-baige-100 focus:bg-baige-100 border-2 border-cobalt-700 text-cobalt-700 rounded p-2 focus:outline-none focus:shadow-outline"
+            class="w-full mt-2 mr-5 bg-mac-light-gray font-system focus:bg-mac-dark-gray border border-mac-blue text-mac-blue rounded-mac p-2 focus:outline-none focus:shadow-outline"
           />
         </div>
       </div>
       <div class="flex flex-row justify-between mt-2">
         <div class="block mr-5 w-full">
-          <label class="mt-2 text-cobalt-900"
+          <label class="mt-2 text-mac-blue"
             >Journey Description
-            <span class="text-scarlet-900 mt-1 font-bold">*</span></label
+            <span class="text-mac-red mt-1 font-system">*</span></label
           >
           <textarea
             type="textarea"
             v-model="journeyForm.description"
-            class="w-full mt-2 mr-5 bg-baige-100 focus:bg-baige-100 border-2 border-cobalt-700 text-cobalt-700 rounded p-2 focus:outline-none focus:shadow-outline"
+            class="w-full mt-2 mr-5 bg-mac-light-gray font-system focus:bg-mac-dark-gray border border-mac-blue text-mac-blue rounded-mac p-2 focus:outline-none focus:shadow-outline"
           />
         </div>
       </div>
       <div class="flex flex-row justify-between mt-2">
         <div class="block mr-2">
-          <label class="mt-2 text-cobalt-900"
+          <label class="mt-2 text-mac-blue"
             >Journey Start Date
-            <span class="text-scarlet-900 mt-1 font-bold">*</span></label
+            <span class="text-mac-red mt-1 font-system">*</span></label
           >
           <input
             type="date"
             v-model="journeyForm.startDate"
-            class="w-full mt-2 mr-5 bg-baige-100 focus:bg-baige-100 border-2 border-cobalt-700 text-cobalt-700 rounded p-2 focus:outline-none focus:shadow-outline"
+            class="w-full mt-2 mr-5 bg-mac-light-gray font-system focus:bg-mac-dark-gray border border-mac-blue text-mac-blue rounded-mac p-2 focus:outline-none focus:shadow-outline"
           />
         </div>
         <div class="block mr-2">
-          <label class="mt-2 text-cobalt-900"
+          <label class="mt-2 text-mac-blue"
             >Journey End Date
-            <span class="text-scarlet-900 mt-1 font-bold">*</span></label
+            <span class="text-mac-red mt-1 font-system">*</span></label
           >
           <input
             type="date"
             v-model="journeyForm.endDate"
-            class="w-full mt-2 mr-5 bg-baige-100 focus:bg-baige-100 border-2 border-cobalt-700 text-cobalt-700 rounded p-2 focus:outline-none focus:shadow-outline"
+            class="w-full mt-2 mr-5 bg-mac-light-gray font-system focus:bg-mac-dark-gray border border-mac-blue text-mac-blue rounded-mac p-2 focus:outline-none focus:shadow-outline"
           />
         </div>
       </div>
       <div class="flex flex-row justify-between mt-2">
         <div class="block mr-2">
-          <label class="mt-2 text-cobalt-900"
+          <label class="mt-2 text-mac-blue"
             >Journey Duration
-            <span class="text-scarlet-900 mt-1 font-bold">*</span></label
+            <span class="text-mac-red mt-1 font-system">*</span></label
           >
           <input
             type="number"
             v-model="journeyForm.duration"
-            class="w-full mt-2 mr-5 bg-baige-100 focus:bg-baige-100 border-2 border-cobalt-700 text-cobalt-700 rounded p-2 focus:outline-none focus:shadow-outline"
+            class="w-full mt-2 mr-5 bg-mac-light-gray font-system focus:bg-mac-dark-gray border border-mac-blue text-mac-blue rounded-mac p-2 focus:outline-none focus:shadow-outline"
           />
         </div>
         <div class="block">
-          <label class="mt-2 text-cobalt-900"
+          <label class="mt-2 text-mac-blue"
             >Journey Total Cost
-            <span class="text-scarlet-900 mt-1 font-bold">*</span></label
+            <span class="text-mac-red mt-1 font-system">*</span></label
           >
           <input
             type="number"
             v-model="journeyForm.cost"
-            class="w-full mt-2 mr-5 bg-baige-100 focus:bg-baige-100 border-2 border-cobalt-700 text-cobalt-700 rounded p-2 focus:outline-none focus:shadow-outline"
+            class="w-full mt-2 mr-5 bg-mac-light-gray font-system focus:bg-mac-dark-gray border border-mac-blue text-mac-blue rounded-mac p-2 focus:outline-none focus:shadow-outline"
           />
         </div>
       </div>
       <div class="flex flex-row justify-between mt-2">
         <div class="block mr-2">
-          <label class="mt-2 text-cobalt-900"
+          <label class="mt-2 text-mac-blue"
             >Starting From
-            <span class="text-scarlet-900 mt-1 font-bold">*</span></label
+            <span class="text-mac-red mt-1 font-system">*</span></label
           >
           <input
             type="text"
             v-model="journeyForm.start"
-            class="w-full mt-2 mr-5 bg-baige-100 focus:bg-baige-100 border-2 border-cobalt-700 text-cobalt-700 rounded p-2 focus:outline-none focus:shadow-outline"
+            class="w-full mt-2 mr-5 bg-mac-light-gray font-system focus:bg-mac-dark-gray border border-mac-blue text-mac-blue rounded-mac p-2 focus:outline-none focus:shadow-outline"
           />
         </div>
         <div class="block">
-          <label class="mt-2 text-cobalt-900"
+          <label class="mt-2 text-mac-blue"
             >Destination
-            <span class="text-scarlet-900 mt-1 font-bold">*</span></label
+            <span class="text-mac-red mt-1 font-system">*</span></label
           >
           <input
             type="text"
             v-model="journeyForm.destination"
             @blur="fetchCoords"
-            class="w-full mt-2 mr-5 bg-baige-100 focus:bg-baige-100 border-2 border-cobalt-700 text-cobalt-700 rounded p-2 focus:outline-none focus:shadow-outline"
+            class="w-full mt-2 mr-5 bg-mac-light-gray font-system focus:bg-mac-dark-gray border border-mac-blue text-mac-blue rounded-mac p-2 focus:outline-none focus:shadow-outline"
           />
         </div>
       </div>
@@ -108,7 +108,7 @@
         <div class="w-1/3 h-28 mt-2 flex items-end justify-end">
           <button
             @click="goToPage(2)"
-            class="border border-cobalt-700 rounded w-2/3 h-10 text-cobalt-700 roundex mx-2 hover:bg-baige-300"
+            class="border border-mac-blue rounded w-2/3 h-10 text-mac-blue roundex mx-2 hover:bg-mac-light-gray"
           >
             Add Itenanary
           </button>
@@ -116,15 +116,15 @@
       </div>
     </div>
     <div
-      class="border-2 rounded border-cobalt-700 w-full p-5 mt-5 font-mono h-5/6 max-h-full overflow-auto"
+      class="border-2 rounded border-mac-blue w-full p-5 mt-5 font-mono h-5/6 max-h-full overflow-auto"
       v-if="page === 2"
     >
-      <div class="text-cobalt-900 text-lg">Add Itenenary</div>
+      <div class="text-mac-blue text-lg">Add Itenenary</div>
       <div class="h-5/6 max-h-full overflow-y-scroll overflow-x-hidden mt-2">
         <div v-for="(item, index) in days" :key="index">
           <div class="flex flex-row">
             <div class="w-10/12">
-              <label class="mt-2 text-cobalt-900"
+              <label class="mt-2 text-mac-blue"
                 >Place Number {{ index + 1 }}</label
               >
               <input
@@ -132,7 +132,7 @@
                 v-model="item.cityName"
                 type="text"
                 @change="fetchLatLong(item.cityName)"
-                class="w-full mt-2 mr-5 bg-baige-100 focus:bg-baige-100 border-2 border-cobalt-700 text-cobalt-700 rounded p-2 focus:outline-none focus:shadow-outline"
+                class="w-full mt-2 mr-5 bg-mac-light-gray font-system focus:bg-mac-dark-gray border border-mac-blue text-mac-blue rounded-mac p-2 focus:outline-none focus:shadow-outline"
               />
             </div>
             <div class="w-1/12 flex justify-end items-center mt-5">
@@ -140,7 +140,7 @@
                 title="Remove Day in itenenary"
                 type="button"
                 @click="removePlace(index)"
-                class="rounded-full w-8 h-8 bg-cobalt-700 text-white mt-1 flex justify-center items-center hover:bg-cobalt-900"
+                class="rounded-full w-8 h-8 bg-mac-blue text-white mt-1 flex justify-center items-center hover:bg-mac-blue"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -164,7 +164,7 @@
           title="Add new Day in itenenary"
           @click="addPlaces()"
           type="button"
-          class="rounded-full w-8 h-8 bg-cobalt-700 text-white mt-1 flex justify-center items-center hover:bg-cobalt-900"
+          class="rounded-full w-8 h-8 bg-mac-blue text-white mt-1 flex justify-center items-center hover:bg-mac-blue"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -187,7 +187,7 @@
         <div class="w-1/3 mt-4 flex items-end justify-start">
           <button
             @click="goToPage(1)"
-            class="border border-cobalt-700 rounded w-2/3 h-10 text-cobalt-700 roundex mx-2 hover:bg-baige-300"
+            class="border border-mac-blue rounded w-2/3 h-10 text-mac-blue roundex mx-2 hover:bg-mac-light-gray"
           >
             Back
           </button>
@@ -195,7 +195,7 @@
         <div class="w-1/3 mt-4 flex items-end justify-end">
           <button
             @click="addItenenary"
-            class="border bg-cobalt-700 rounded w-2/3 h-10 text-white rounded mx-2 hover:bg-cobalt-900"
+            class="border bg-mac-blue rounded w-2/3 h-10 text-white rounded mx-2 hover:bg-mac-blue"
           >
             Submit
           </button>
@@ -312,20 +312,19 @@ export default {
   padding: 3px;
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
   margin-left: 2px;
-  background-color: #eae2b7; /* Set the background color of the track */
+  background-color: #e5e5e5; /* Set the background color of the track */
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
   border-radius: 5px;
-  background-color: #33596d; /* Set the background color of the thumb/handle */
+  background-color: #007aff; /* Set the background color of the thumb/handle */
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #003049; /* Set the background color on hover */
+  background-color: #1d4ed8; /* Set the background color on hover */
 }
 </style>

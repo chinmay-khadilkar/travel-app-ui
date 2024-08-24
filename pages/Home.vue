@@ -3,7 +3,7 @@
     <div role="status">
       <svg
         aria-hidden="true"
-        class="inline w-12 h-12 text-gray-200 animate-spin dark:text-cobat-600 fill-cobalt-600"
+        class="inline w-12 h-12 text-light-gray animate-spin dark:text-light-gray fill-light-gray"
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -27,7 +27,7 @@
           title="Add Itenenary"
           type="button"
           @click="navigateToAddJourney"
-          class="rounded-full mt-2 ml-2 w-8 h-8 bg-cobalt-700 text-white mt-1 flex justify-center items-center hover:bg-cobalt-900"
+          class="rounded-full mt-2 ml-2 w-8 h-8 bg-mac-blue text-mac-white mt-1 flex justify-center items-center hover:bg-mac-dark-blue"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -50,7 +50,7 @@
           v-if="showDetails"
           type="button"
           @click="navigateToEdit"
-          class="rounded-full w-8 h-8 ml-2 mt-2 bg-cobalt-700 text-white mt-1 flex justify-center items-center hover:bg-cobalt-900"
+          class="rounded-full mt-2 ml-2 w-8 h-8 bg-mac-blue text-mac-white mt-1 flex justify-center items-center hover:bg-mac-dark-blue"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -72,7 +72,7 @@
           v-if="showDetails"
           type="button"
           @click="deleteJourney"
-          class="rounded-full w-8 h-8 ml-2 mt-2 bg-cobalt-700 text-white mt-1 flex justify-center items-center hover:bg-cobalt-900"
+          class="rounded-full mt-2 ml-2 w-8 h-8 bg-mac-blue text-mac-white mt-1 flex justify-center items-center hover:bg-mac-dark-blue"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -94,7 +94,7 @@
           v-if="showDetails"
           type="button"
           @click="closeDetails()"
-          class="rounded-full w-8 h-8 ml-2 mt-2 bg-cobalt-700 text-white mt-1 flex justify-center items-center hover:bg-cobalt-900"
+          class="rounded-full mt-2 ml-2 w-8 h-8 bg-mac-blue text-mac-white mt-1 flex justify-center items-center hover:bg-mac-dark-blue"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -115,7 +115,7 @@
           title="Logout"
           type="button"
           @click="logout"
-          class="rounded-full mt-2 ml-2 w-8 h-8 bg-cobalt-700 text-white mt-1 flex justify-center items-center hover:bg-cobalt-900"
+          class="rounded-full mt-2 ml-2 w-8 h-8 bg-mac-blue text-mac-white mt-1 flex justify-center items-center hover:bg-mac-dark-blue"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -135,8 +135,10 @@
       </div>
     </div>
     <div class="flex flex-row w-full h-full">
-      <div class="h-full w-full p-4 rounded p-5 flex-grow">
-        <div class="w-full overflow-auto h-full flex-grow pa-4 text-cobalt-900">
+      <div class="h-full w-full p-4 rounded-mac p-5 flex-grow">
+        <div
+          class="w-full overflow-auto h-full flex-grow pa-4 text-mac-dark-blue"
+        >
           <l-map :zoom="zoom" :center="center" v-if="!showDetails">
             <l-tile-layer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

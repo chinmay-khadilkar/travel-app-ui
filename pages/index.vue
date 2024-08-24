@@ -1,7 +1,7 @@
 <template>
   <div class="relative w-full h-full flex justify-center flex-row">
     <div
-      class="h-fit w-96 rounded shadow hover:shadow-2xl mt-8 border-2 border-cobalt-700 p-4 z-38"
+      class="h-fit w-96 rounded-mac shadow-mac-window hover:shadow-2xl mt-8 border-mac border-mac-blue p-4 z-38"
     >
       <div class="h-80 w-80 ml-4">
         <!-- <svg
@@ -24,7 +24,7 @@
           viewBox="0 0 24 24"
           stroke-width="1.5"
           stroke="currentColor"
-          class="h-80 w-80 text-cobalt-700 mr-2"
+          class="h-80 w-80 text-mac-blue mr-2"
         >
           <path
             stroke-linecap="round"
@@ -38,17 +38,21 @@
           />
         </svg>
       </div>
-      <label class="mt-2 text-cobalt-900" for="username"> Username </label>
+      <label class="mt-2 text-mac-dark-blue font-system" for="username">
+        Username
+      </label>
       <input
-        class="w-full mt-2 mr-5 bg-baige-100 focus:bg-baige-100 border-2 border-cobalt-700 text-cobalt-700 rounded p-2 focus:outline-none focus:shadow-outline"
+        class="w-full mt-2 mr-5 bg-mac-light-gray font-system focus:bg-mac-dark-gray border border-mac-blue text-mac-blue rounded-mac p-2 focus:outline-none focus:shadow-outline"
         id="username"
         type="text"
         v-model="username"
         placeholder="Email"
       />
-      <label class="mt-4 text-cobalt-900" for="username"> Password </label>
+      <label class="mt-4 text-mac-blue font-system" for="username">
+        Password
+      </label>
       <input
-        class="w-full mt-2 mr-5 bg-baige-100 focus:bg-baige-100 border-2 border-cobalt-700 text-cobalt-700 rounded p-2 focus:outline-none focus:shadow-outline"
+        class="w-full mt-2 mr-5 bg-mac-light-gray font-system focus:bg-mac-dark-gray border border-mac-blue text-mac-blue rounded-mac p-2 focus:outline-none focus:shadow-outline"
         id="username"
         v-model="password"
         type="password"
@@ -57,12 +61,12 @@
       <div class="flex justify-between mt-5">
         <button
           @click="performSignIn"
-          class="bg-cobalt-700 rounded text-white w-24 h-10 mx-2 hover:bg-cobalt-800"
+          class="bg-mac-blue font-system rounded-mac text-white w-24 h-10 mx-2 hover:bg-mac-dark-blue"
         >
           Sign In
         </button>
         <button
-          class="border border-cobalt-700 rounded w-24 h-10 text-cobalt-700 roundex mx-2 hover:bg-baige-300"
+          class="border border-mac font-system border-mac-blue rounded-mac w-24 h-10 text-mac-blue rounde-mac mx-2 hover:bg-dark-gray"
         >
           Sign up
         </button>

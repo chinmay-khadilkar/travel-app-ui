@@ -12,60 +12,30 @@ export default {
     },
     extend: {
       colors: {
-        'cobalt': {
-          50: "#e6eaed",
-          100: "#ccd6db",
-          200: "#b3c1c8",
-          300: "#99acb6",
-          400: "#8098a4",
-          500: "#668392",
-          600: "#4d6e80",
-          700: "#33596d",
-          800: "#1a455b",
-          900: "#003049",
+        mac: {
+          'light-gray': '#E5E5E5', // Window background
+          'dark-gray': '#D1D1D1',  // Window border
+          'blue': '#007AFF',       // Default accent color
+          'green': '#34C759',      // Green accent color (e.g., active button)
+          'red': '#FF3B30',        // Red accent color (e.g., close button)
+          'yellow': '#FFCC00',     // Yellow accent color (e.g., minimize button)
+          'dark-blue': '#1D4ED8',  // Active/hover blue
+          'black': '#1C1C1E',      // macOS dark mode background
+          'white': '#FFFFFF',      // Text and icons
+          'light-blue': '#F0F8FF', // Background of selected items
+          'divider': '#D0D0D0',    // Divider color
         },
-        'scarlet': {
-          50: '#fbeaea',
-          100: '#f7d4d4',
-          200: '#f3bfbf',
-          300: '#efa9a9',
-          400: '#eb9494',
-          500: '#e67e7e',
-          600: '#e26969',
-          700: '#de5353',
-          800: '#da3e3e',
-          900: '#d62828'
-        },
-        'orange': {
-          50: '#fef2e6',
-          100: '#fde5cc',
-          200: '#fdd9b3',
-          300: '#fccc99',
-          400: '#fbbf80',
-          500: '#fab266',
-          600: '#f9a54d',
-          700: '#f99933',
-          800: '#f88c1a',
-          900: '#f77f00'
-        },
-        'yellow': {
-          50: '#fff9ed',
-          100: '#fef2db',
-          200: '#feecc8',
-          300: '#fee5b6',
-          400: '#fedfa4',
-          500: '#fdd992',
-          600: '#fdd280',
-          700: '#fdcc6d',
-          800: '#fcc55b',
-          900: '#fcbf49'
-        },
-        'baige': {
-          100: '#f0ebcd',
-          200: '#eee8c5',
-          300: '#ece5be',
-          400: '#eae2b7'
-        }
+      },
+      fontFamily: {
+        // macOS-like system font
+        'system': ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'sans-serif'],
+      },
+      boxShadow: {
+        // macOS-like shadows
+        'mac-window': '0 0 15px rgba(0, 0, 0, 0.15)', // Subtle shadow for windows
+      },
+      borderRadius: {
+        'mac': '12px', // Rounded corners similar to macOS windows
       },
     },
   },
