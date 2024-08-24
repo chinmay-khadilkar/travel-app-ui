@@ -1,9 +1,16 @@
 <template>
-  <transition mode="out-in" name="fade">
+  <transition mode="out-in" name="fade" v-if="toastType === 'failure'">
     <div
       v-if="show"
-      class="absolute h-10 w-96 text-white rounded-mac top-0 right-0 mt-2 mr-2 p-2"
-      :class="[`bg-${bg_color}-500`]"
+      class="absolute h-10 w-96 text-white rounded-mac top-0 right-0 mt-2 mr-2 p-2 bg-mac-red"
+    >
+      {{ message }}
+    </div>
+  </transition>
+  <transition mode="out-in" name="fade" v-if="toastType === 'success'">
+    <div
+      v-if="show"
+      class="absolute h-10 w-96 text-white rounded-mac top-0 right-0 mt-2 mr-2 p-2 bg-mac-green"
     >
       {{ message }}
     </div>
@@ -26,12 +33,6 @@ export default {
   data() {
     return {
       show: false,
-      bg_color:
-        this.toastType === "failure"
-          ? "mac-red"
-          : this.toastType === "success"
-          ? "mac-green"
-          : "mac-yellow",
     };
   },
   methods: {

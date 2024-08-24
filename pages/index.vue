@@ -76,6 +76,7 @@
       v-if="showToast"
       :message="message"
       :timeout="3000"
+      :toastType="'failure'"
       @close="showToast = false"
     ></toast>
   </div>

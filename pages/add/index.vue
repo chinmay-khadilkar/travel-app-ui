@@ -56,17 +56,6 @@
         </div>
       </div>
       <div class="flex flex-row justify-between mt-2">
-        <div class="block mr-2">
-          <label class="mt-2 text-mac-blue"
-            >Journey Duration
-            <span class="text-mac-red mt-1 font-system">*</span></label
-          >
-          <input
-            type="number"
-            v-model="journeyForm.duration"
-            class="w-full mt-2 mr-5 bg-mac-light-gray font-system focus:bg-mac-dark-gray border border-mac-blue text-mac-blue rounded-mac p-2 focus:outline-none focus:shadow-outline"
-          />
-        </div>
         <div class="block">
           <label class="mt-2 text-mac-blue"
             >Journey Total Cost
@@ -223,7 +212,6 @@ export default {
         description: "",
         startDate: "",
         endDate: "",
-        duration: "",
         cost: "",
         start: "",
         destination: "",
